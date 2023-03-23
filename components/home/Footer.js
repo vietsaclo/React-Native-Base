@@ -1,14 +1,32 @@
-import React from 'react'
-import { Text, StyleSheet, View, TextInput } from 'react-native'
+import React, { useState } from 'react'
+import { Text, StyleSheet, View, TextInput, TouchableOpacity, Keyboard } from 'react-native'
+import ChatGPT from '../../actions/ChatGPT';
 import { COLORS } from '../../common/utils/consts/Consts';
 
+const chatGPT = new ChatGPT();
+
 const Footer = () => {
+  const [text, onChangeText] = useState('');
+
+  const handleSendMessage = () => {
+    console.log(text);
+    chatGPT.reply(text);
+
+    onChangeText('');
+    Keyboard.dismiss();
+  }
+
   return (
     <View style={styles.container}>
-      <TextInput style={styles.input} placeholder='Typing...' />
-      <View style={styles.button}>
-        <Text style={styles.buttonText}>+</Text>
-      </View>
+      <TextInput
+        value={text}
+        onChangeText={onChangeText}
+        style={styles.input} placeholder='Typing...' />
+      <TouchableOpacity onPress={handleSendMessage}>
+        <View style={styles.button}>
+          <Text style={styles.buttonText}>+</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   )
 }
