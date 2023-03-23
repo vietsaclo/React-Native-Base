@@ -1,6 +1,4 @@
-const Actions = {
-  USER_LOGIN: 'USER_LOGIN',
-  USER_LOGOUT: 'USER_LOGOUT',
+export const CHAT_GPT = {
+  LOADING: 'LOADING',
+  
 }
-
-export default Actions;

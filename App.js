@@ -2,6 +2,7 @@ import Home from './pages/Home';
 import { Provider } from 'react-redux';
 import Store from './common/store/Store';
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import 'react-native-url-polyfill/auto'
 
 export default function App() {
   return (
