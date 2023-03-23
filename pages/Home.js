@@ -1,40 +1,20 @@
-import React, { useEffect } from 'react';
-import { Text, StyleSheet, View, Button } from 'react-native';
-import { API_TOKEN } from '@env';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { COLORS } from '../common/utils/consts/Consts';
+import Header from '../components/common/Header';
+import BodyContent from '../components/home/BodyContent';
+import Footer from '../components/home/Footer';
 
 const Home = () => {
-  const state = useSelector((state) => state.example);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log(state);
-  }, []);
-
-  useEffect(() => {
-    console.log('Change: ', state);
-  }, [state]);
-
   return (
     <View style={styles.container}>
-      <Text>ENV: {API_TOKEN} | redux: {state.prevAction}</Text>
-      <Button title='Click ex1' onPress={() => {
-        dispatch({
-          type: 'ex1',
-          payload: {
-            name: 'click me 01',
-          }
-        });
-      }}></Button>
+      <View style={styles.containerInner}>
+        <Header />
 
-      <Button title='Click ex2' onPress={() => {
-        dispatch({
-          type: 'ex2',
-          payload: {
-            name: 'click me 02',
-          }
-        });
-      }}></Button>
+        <BodyContent />
+
+        <Footer />
+      </View>
     </View>
   )
 }
@@ -43,9 +23,13 @@ export default Home;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f1f1f1',
     flex: 1,
-    margin: 50,
-    padding: 10,
+    backgroundColor: COLORS.background_0,
+    padding: 7,
+    paddingTop: 40,
   },
+  containerInner: {
+    flex: 1,
+    backgroundColor: COLORS.background_1,
+  }
 });
