@@ -15,9 +15,8 @@ class ChatGPT {
         this.messageHistories = [];
     }
 
-    reply(message) {
+    reply(message, onFinish) {
         this.messageHistories.push({ role: "user", content: message });
-        console.log(this.messageHistories);
         this.openai.createCompletion({
             model: "gpt-3.5-turbo",
             messages: this.messageHistories,
@@ -25,12 +24,11 @@ class ChatGPT {
         .then((completion) => {
             const completion_text = completion.data.choices[0].message.content;
             this.messageHistories.push({ role: "assistant", content: completion_text });
-            console.log({completion_text});
+            onFinish(completion_text);
         })
         .catch((_error) => {
-            console.log(_error);
             const message = `[${new Date().toUTCString()}] Đã ghi nhận "${message}" | Nhưng đã gặp sự cố, không trả lời được, hãy thự lại sau!`;
-            console.log(message);
+            onFinish(message);
         });
 
         // Save memory!
