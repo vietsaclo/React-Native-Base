@@ -7,7 +7,7 @@ import {
 class ChatGPT {
     constructor() {
         this.configuration = new Configuration({
-            apiKey: OPENAI_API_KEY,
+            apiKey: OPENAI_API_KEY || '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',
             basePath: 'https://api.openai.com/v1/chat',
         });
 
@@ -27,8 +27,8 @@ class ChatGPT {
             onFinish(completion_text);
         })
         .catch((_error) => {
-            const message = `[${new Date().toUTCString()}] Đã ghi nhận "${message}" | Nhưng đã gặp sự cố, không trả lời được, hãy thự lại sau!`;
-            onFinish(message);
+            const messageError = `[${new Date().toUTCString()}] Đã ghi nhận "${message}" | Nhưng đã gặp sự cố, không trả lời được, hãy thự lại sau!`;
+            onFinish(messageError);
         });
 
         // Save memory!
