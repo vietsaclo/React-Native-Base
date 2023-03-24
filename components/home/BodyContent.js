@@ -1,13 +1,27 @@
-import React from 'react'
-import { Text, StyleSheet, View, ScrollView } from 'react-native'
+import React, { useEffect, useRef } from 'react'
+import { StyleSheet, View, ScrollView } from 'react-native'
+import { useSelector } from 'react-redux';
+import { CHAT_GPT } from '../../common/utils/actions-type/ActionType';
 import Message from './Message';
 
 const BodyContent = () => {
+  const scrollRef = useRef();
+  const gptReducer = useSelector((state) => state.chatGPT);
+
+  useEffect(() => {
+    if (!scrollRef || !scrollRef.current) return;
+    scrollRef.current.scrollToEnd({ animated: true });
+
+  }, [gptReducer.talks.length])
+
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <Message isMe={true} message='How are you ?' />
-        <Message isMe={false} message="I'm Fine, Thanks." />
+      <ScrollView ref={scrollRef}>
+        {gptReducer.talks.map((v, k) => {
+          return (
+            <Message key={k} isMe={v.role === CHAT_GPT.ME} message={v.message} />
+          );
+        })}
       </ScrollView>
     </View>
   )
@@ -19,6 +33,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 7,
-    // backgroundColor: 'blue',
   }
 });

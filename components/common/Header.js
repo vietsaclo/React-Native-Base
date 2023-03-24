@@ -1,13 +1,22 @@
 import React from 'react'
 import { Text, StyleSheet, View } from 'react-native'
+import { useSelector } from 'react-redux';
 import { COLORS } from '../../common/utils/consts/Consts';
 
 const Header = () => {
+  const gptReducer = useSelector((state) => state.chatGPT);
+
   return (
     <View style={styles.container}>
       <Text style={styles.headerText}>Chat-GPT 
         <Text style={{color: COLORS.background_1}}>&nbsp;API</Text>
       </Text>
+
+      {gptReducer.loading ? (
+        <Text style={styles.headerTextCalling}>
+          Calling..
+        </Text>
+      ) : ''}
     </View>
   )
 }
@@ -16,15 +25,24 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'row',
     width: '100%',
-    height: 50,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     backgroundColor: COLORS.white,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
   },
   headerText: {
-    paddingHorizontal: 20,
     fontSize: 24,
     fontWeight: 'bold',
     color: COLORS.black,
+    width: '70%',
+  },
+  headerTextCalling: {
+    color: COLORS.background_1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 24,
+    fontWeight: 'bold',
   },
 })
