@@ -7,7 +7,7 @@ import {
 class ChatGPT {
     constructor() {
         this.configuration = new Configuration({
-            apiKey: OPENAI_API_KEY || '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',
+            apiKey: OPENAI_API_KEY,
             basePath: 'https://api.openai.com/v1/chat',
         });
 
